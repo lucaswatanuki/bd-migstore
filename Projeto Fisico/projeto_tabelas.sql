@@ -2,30 +2,33 @@
 
 CREATE TABLE loja
 (
-    codigo int not NULL,
+    codigo int not null IDENTITY(1,1),
     cnpj VARCHAR(18) not NULL,
     endereco VARCHAR(100),
     numero int not NULL,
     cidade VARCHAR(20) NOT NULL,
-    estado CHAR(2) NOT NULL,
+    UF CHAR(2) NOT NULL,
     nome VARCHAR(50),
     PRIMARY KEY(codigo),
     UNIQUE(cnpj)
 )
 
+
 create TABLE pessoa
 (
-    codigo int NOT NULL,
+    codigo int not null IDENTITY(1,1),
     cod_loja int NOT NULL,
     nome VARCHAR(50) NOT NULL,
     endereco VARCHAR(100),
     numero int not NULL,
     cidade VARCHAR(20) NOT NULL,
-    estado CHAR(2) NOT NULL,
+    UF CHAR(2) NOT NULL,
     telefone VARCHAR(14) NOT NULL,
     PRIMARY KEY(codigo),
     FOREIGN KEY(cod_loja) REFERENCES loja
 )
+
+ALTER TABLE pessoa add tipo int not null
 
 CREATE TABLE funcionario
 (
@@ -58,7 +61,7 @@ CREATE TABLE vendedor
 
 CREATE TABLE cliente
 (
-    codigo INT NOT NULL,
+    codigo int not null IDENTITY(1,1),
     cod_pessoa INT NOT NULL,
     dt_nasc DATE not NULL,
     tipo_cliente SMALLINT NOT NULL,
@@ -88,13 +91,13 @@ CREATE TABLE pessoa_fisica
 
 CREATE TABLE fornecedor
 (
-    codigo int not NULL,
+    codigo int not null IDENTITY(1,1),
     cnpj VARCHAR(18) not NULL,
     nome_fantasia VARCHAR(50) not NULL,
     endereco VARCHAR(100),
     numero int not NULL,
     cidade VARCHAR(20) NOT NULL,
-    estado CHAR(2) NOT NULL,
+    UF CHAR(2) NOT NULL,
     PRIMARY KEY(codigo),
     UNIQUE(cnpj)
 )
@@ -130,7 +133,7 @@ CREATE TABLE calcado
 
 CREATE TABLE requisicao_compra
 (
-    codigo int not NULL,
+    codigo int not null IDENTITY(1,1),
     cod_fornecedor INT NOT NULL,
     cod_produto INT NOT NULL,
     RF INT not NULL,
@@ -145,7 +148,7 @@ CREATE TABLE requisicao_compra
 
 CREATE TABLE venda
 (
-    codigo int not NULL,
+    codigo int not null IDENTITY(1,1),
     cod_cliente int not NULL,
     RF int not NULL,
     cod_produto int not NULL,

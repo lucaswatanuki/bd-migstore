@@ -4,9 +4,9 @@ create PROCEDURE cadastrar_fornecedor
 @endereco VARCHAR(100),
 @numero int,
 @cidade VARCHAR(20),
-@estado CHAR(2)
+@UF CHAR(2)
 AS
-INSERT into fornecedor VALUES(@cnpj, @nome_fantasia, @endereco, @numero, @cidade, @estado)
+INSERT into fornecedor VALUES(@cnpj, @nome_fantasia, @endereco, @numero, @cidade, @UF)
 IF @@ROWCOUNT>0
     BEGIN
         PRINT 'Fornecedor cadastrado com sucesso'

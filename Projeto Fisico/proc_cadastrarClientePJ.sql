@@ -4,7 +4,7 @@ Create PROCEDURE cadastrar_cliente_PJ
 @endereco VARCHAR(100),
 @numero int,
 @cidade VARCHAR(50),
-@estado CHAR(2),
+@UF CHAR(2),
 @telefone VARCHAR(14),
 @tipo_pessoa int,
 @dt_nasc date,
@@ -13,9 +13,9 @@ Create PROCEDURE cadastrar_cliente_PJ
 @nome_fantasia VARCHAR(13)
 AS
 BEGIN TRANSACTION
-    INSERT into pessoa VALUES(@codloja, @nome, @endereco, @numero, @cidade, @estado, @telefone, @tipo_pessoa)
+    INSERT into pessoa VALUES(@codloja, @nome, @endereco, @numero, @cidade, @UF, @telefone, @tipo_pessoa)
     DECLARE @cod_pessoa INT = (select IDENT_CURRENT('pessoa') AS [IDENT_CURRENT('pessoa')])
-    IF @@ROWCOUNT>0 AND @tipo_pessoa = 0
+    IF @@ROWCOUNT>0 AND @tipo_pessoa = 1
         BEGIN
             INSERT into cliente VALUES(@cod_pessoa, @dt_nasc, @tipo_cliente)
             DECLARE @cod_cliente INT = (select IDENT_CURRENT('cliente') AS [IDENT_CURRENT('cliente')])
@@ -40,7 +40,7 @@ BEGIN TRANSACTION
         ROLLBACK TRANSACTION
 
 DECLARE @teste INT
-EXEC @teste = cadastrar_cliente_PJ 1, 'Lucas Watanuki', 'Rua Anita Garibaldi', 59, 'Limeira', 'SP', '13996634819', 0, '14/10/1996', 0, '30.037.847/0001-01','LukeSports'
+EXEC @teste = cadastrar_cliente_PJ 1, 'Lucas Watanuki', 'Rua Anita Garibaldi', 59, 'Limeira', 'SP', '13996634819', 1, '14/10/1996', 0, '30.037.847/0001-01','LukeSports'
 PRINT @teste
 
 select* from pessoa_juridica

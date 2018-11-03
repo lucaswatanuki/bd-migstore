@@ -4,7 +4,7 @@ Create PROCEDURE cadastrar_cliente_PF
 @endereco VARCHAR(100),
 @numero int,
 @cidade VARCHAR(50),
-@estado CHAR(2),
+@UF CHAR(2),
 @telefone VARCHAR(14),
 @tipo_pessoa int,
 @dt_nasc date,
@@ -13,7 +13,7 @@ Create PROCEDURE cadastrar_cliente_PF
 @rg VARCHAR(13)
 AS
 BEGIN TRANSACTION
-    INSERT into pessoa VALUES(@codloja, @nome, @endereco, @numero, @cidade, @estado, @telefone, @tipo_pessoa)
+    INSERT into pessoa VALUES(@codloja, @nome, @endereco, @numero, @cidade, @UF, @telefone, @tipo_pessoa)
     DECLARE @cod_pessoa INT = (select IDENT_CURRENT('pessoa') AS [IDENT_CURRENT('pessoa')])
     IF @@ROWCOUNT>0 AND @tipo_pessoa = 1
         BEGIN
