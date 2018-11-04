@@ -40,4 +40,4 @@ BEGIN TRANSACTION
         ROLLBACK TRANSACTION
 
 DECLARE @teste INT
-EXEC @teste = cadastrar_cliente_PF 1, 'Henrique Doente', 'Rua Morar Mais', 666, 'Limeira', 'SP', '169123451234', 0, '25/03/2000', 1, '123.456.789-10','44.123.000-X'
+EXEC @teste = cadastrar_cliente_PF 1, 'Lucas Watanuki', 'Rua Anita Garibaldi', 59, 'Limeira', 'SP', '(13)99663-4819', 1, '25/03/2000', 1, '469.015.148-24','52.691.851-2'
