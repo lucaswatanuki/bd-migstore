@@ -1,10 +1,11 @@
-Create TRIGGER adicionar_itemvenda
+alter TRIGGER adicionar_itemvenda
 on item_venda
 after INSERT
 as
 BEGIN TRANSACTION
 UPDATE venda SET total = total + ((select quantidade from inserted) * (select preco from produtos 
                                                                         where codigo = (select cod_produto from inserted)))
+WHERE venda.codigo = (SELECT cod_venda from inserted)
 IF @@ROWCOUNT>0
     BEGIN
         UPDATE produtos SET qtd_estoque = qtd_estoque - (select quantidade from inserted)

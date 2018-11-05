@@ -20,6 +20,7 @@ IF UPDATE(quantidade)
            BEGIN
            UPDATE venda SET total = (select sum(item_venda.quantidade*produtos.preco)
            from item_venda inner join produtos on produtos.codigo = item_venda.cod_produto)
+           WHERE venda.codigo = (select cod_venda from inserted) OR venda.codigo = (select cod_venda from deleted)
            COMMIT TRANSACTION
            END
        ELSE

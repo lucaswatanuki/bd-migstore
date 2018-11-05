@@ -4,13 +4,14 @@
 SELECT* FROM pessoa
 SELECT* FROM cliente
 SELECT* FROM funcionario
+SELECT* FROM fornecedor
 SELECT* FROM produtos
 SELECT* FROM roupa
 SELECT* FROM calcado
 SELECT* FROM venda
 SELECT* FROM item_venda
+SELECT* from requisicao_compra
+SELECT* FROM item_requisicao
+SELECT* FROM produtos
 
-update item_venda SET quantidade = 1 where cod_produto = 2
-
-insert into item_venda values (2,2,1)
-
+UPDATE item_requisicao SET quantidade = 0 WHERE cod_produto = 2 and cod_req = 1
