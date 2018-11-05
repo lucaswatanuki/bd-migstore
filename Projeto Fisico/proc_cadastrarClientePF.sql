@@ -1,4 +1,4 @@
-Create PROCEDURE cadastrar_cliente_PF
+ALTER PROCEDURE cadastrar_cliente_PF
 @codloja int,
 @nome VARCHAR(50),
 @endereco VARCHAR(100),
@@ -25,19 +25,23 @@ BEGIN TRANSACTION
                    if @@ROWCOUNT>0
                         BEGIN
                             COMMIT TRANSACTION
+                            PRINT 'Cliente cadastrado com sucesso!'
                             RETURN 1
                         END
                     ELSE
                         BEGIN
+                            PRINT 'Erro ao cadastrar cliente!'
                             ROLLBACK TRANSACTION
                             RETURN 0
                         END
                 END
             ELSE
+                PRINT 'Erro ao cadastrar cliente!'
                 ROLLBACK TRANSACTION
         END
     ELSE
+        PRINT 'Erro ao cadastrar cliente!'
         ROLLBACK TRANSACTION
 
-DECLARE @teste INT
-EXEC @teste = cadastrar_cliente_PF 1, 'Lucas Watanuki', 'Rua Anita Garibaldi', 59, 'Limeira', 'SP', '(13)99663-4819', 1, '25/03/2000', 1, '469.015.148-24','52.691.851-2'
+
+EXEC cadastrar_cliente_PF 1, 'Lucas Watanuki', 'Rua Anita Garibaldi', 59, 'Limeira', 'SP', '(13)99663-4819', 1, '14/10/1996', 1, '469.015.148-24','52.691.851-2'

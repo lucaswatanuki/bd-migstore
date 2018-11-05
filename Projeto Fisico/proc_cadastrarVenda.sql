@@ -1,8 +1,8 @@
 Create PROCEDURE cadastrar_venda
 @cod_cliente int,
 @rf_vendedor int,
-@cod_produto int,
 @data DATE,
+@cod_produto INT,
 @quantidade INT
 AS
 BEGIN TRANSACTION
@@ -22,5 +22,5 @@ ELSE ROLLBACK TRANSACTION RETURN 0
 
 
 DECLARE @venda INT
-EXEC @venda = cadastrar_venda 1, 205541, 1, '03/11/2018', 10
+EXEC @venda = cadastrar_venda 1, 205541, '05/11/2018', 2, 1
 print @venda

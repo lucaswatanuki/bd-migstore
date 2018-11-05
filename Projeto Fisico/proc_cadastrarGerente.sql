@@ -1,4 +1,4 @@
-CREATE PROCEDURE cadastrar_gerente
+ALTER PROCEDURE cadastrar_gerente
 @codloja int,
 @nome VARCHAR(50),
 @endereco VARCHAR(100),
@@ -20,7 +20,7 @@ IF @@ROWCOUNT>0 AND @tipo_pessoa = 0
         INSERT into funcionario VALUES(@RF, @cod_pessoa, @codloja, @salario, @tipo_func)
         IF @@ROWCOUNT>0 AND @tipo_func = 0
             BEGIN
-            INSERT into vendedor VALUES(@RF, @departamento)
+            INSERT into gerente VALUES(@RF, @departamento)
                 IF @@ROWCOUNT>0
                     BEGIN
                         COMMIT TRANSACTION
@@ -30,3 +30,5 @@ IF @@ROWCOUNT>0 AND @tipo_pessoa = 0
             END
         ELSE ROLLBACK TRANSACTION
     END
+
+EXEC cadastrar_gerente 1, 'Paulo', 'Heslington, York YO10 5DD, Reino Unido', 13, 'York', 'YO', '(19)99665-1902', 0, 66123, 20000, 0, 'Logistica'
