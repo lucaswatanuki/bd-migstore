@@ -1,4 +1,4 @@
-CREATE PROCEDURE cadastrar_vendedor
+ALTER PROCEDURE cadastrar_vendedor
 @codloja int,
 @nome VARCHAR(50),
 @endereco VARCHAR(100),
@@ -9,8 +9,7 @@ CREATE PROCEDURE cadastrar_vendedor
 @tipo_pessoa int,
 @RF INT,
 @salario money,
-@tipo_func INT,
-@comissao money
+@tipo_func INT
 AS 
 BEGIN TRANSACTION
 INSERT into pessoa VALUES(@codloja, @nome, @endereco, @numero, @cidade, @UF, @telefone, @tipo_pessoa)
@@ -20,7 +19,7 @@ IF @@ROWCOUNT>0 AND @tipo_pessoa = 0
         INSERT into funcionario VALUES(@RF, @cod_pessoa, @codloja, @salario, @tipo_func)
         IF @@ROWCOUNT>0 AND @tipo_func = 1
             BEGIN
-            INSERT into vendedor VALUES(@RF, @comissao)
+            INSERT into vendedor VALUES(@RF, 0)
                 IF @@ROWCOUNT>0
                     BEGIN
                         COMMIT TRANSACTION
@@ -31,4 +30,4 @@ IF @@ROWCOUNT>0 AND @tipo_pessoa = 0
         ELSE ROLLBACK TRANSACTION
     END
 
-EXEC cadastrar_vendedor 1, 'Bertini', 'Rua Wumpus', 666, 'Limeira', 'SP', '(19)66666-6666', '0', 205541, 10000, 1, null
+EXEC cadastrar_vendedor 1, 'Filipe', 'Rua Apple Inc', 123, 'São Paulo', 'SP', '(11)61244-6666', '0', 190754, 15000, 1

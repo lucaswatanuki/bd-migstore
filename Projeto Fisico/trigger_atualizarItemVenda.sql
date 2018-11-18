@@ -18,10 +18,17 @@ IF UPDATE(quantidade)
            END
        IF @@ROWCOUNT > 0
            BEGIN
-           UPDATE venda SET total = (select sum(item_venda.quantidade*produtos.preco)
-           from item_venda inner join produtos on produtos.codigo = item_venda.cod_produto)
-           WHERE venda.codigo = (select cod_venda from inserted) OR venda.codigo = (select cod_venda from deleted)
-           COMMIT TRANSACTION
+                UPDATE venda SET total = (select sum(item_venda.quantidade*produtos.preco)
+                from item_venda inner join produtos on produtos.codigo = item_venda.cod_produto)
+                WHERE venda.codigo = (select cod_venda from inserted) OR venda.codigo = (select cod_venda from deleted)
+                    IF @@ROWCOUNT>0
+                        BEGIN
+                            UPDATE vendedor 
+                            SET comissao = comissao + (0.2 * (select total FROM venda where codigo = (select cod_venda from inserted) 
+                                                    AND RF = (SELECT RF from venda where codigo = (select cod_venda from inserted))))
+                        COMMIT TRANSACTION
+                        END
+                    ELSE ROLLBACK TRANSACTION
            END
        ELSE
            BEGIN

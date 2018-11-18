@@ -22,5 +22,5 @@ ELSE ROLLBACK TRANSACTION RETURN 0
 
 
 DECLARE @venda INT
-EXEC @venda = cadastrar_venda 1, 205541, '05/11/2018', 2, 1
+EXEC @venda = cadastrar_venda 1, 190754, '07/11/2018', 2, 1
 print @venda

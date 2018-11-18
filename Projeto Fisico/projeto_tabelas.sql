@@ -1,5 +1,8 @@
 /*Base de Dados - Tabelas*/
 
+--Para resetar códigos de identificação:
+DBCC CHECKIDENT('nome tabela', RESEED, 0)
+
 CREATE TABLE loja
 (
     codigo int not null IDENTITY(1,1),
@@ -104,7 +107,7 @@ CREATE TABLE fornecedor
 
 CREATE TABLE produtos
 (
-    codigo int not NULL,
+    codigo int not null IDENTITY(1,1),
     nome VARCHAR(50) not NULL,
     marca VARCHAR(15),
     departamento VARCHAR(15) not NULL,
@@ -131,14 +134,13 @@ CREATE TABLE calcado
     FOREIGN KEY(cod_produto) REFERENCES produtos
 )
 
-CREATE TABLE requisicao_compra
+drop TABLE requisicao_compra
 (
     codigo int not null IDENTITY(1,1),
     cod_fornecedor INT NOT NULL,
     cod_produto INT NOT NULL,
     RF INT not NULL,
     _data DATE not NULL,
-    _status VARCHAR(10),
     total money NOT NULL,
     PRIMARY KEY(codigo),
     FOREIGN KEY(cod_fornecedor) REFERENCES fornecedor,
@@ -151,7 +153,6 @@ CREATE TABLE venda
     codigo int not null IDENTITY(1,1),
     cod_cliente int not NULL,
     RF int not NULL,
-    cod_produto int not NULL,
     _data DATE not NULL,
     total money NOT NULL,
     PRIMARY KEY(codigo),
@@ -159,12 +160,11 @@ CREATE TABLE venda
     FOREIGN KEY(RF) REFERENCES vendedor
 )
 
-CREATE TABLE item_requisicao
+Create TABLE item_requisicao
 (
     cod_req INT NOT NULL,
     cod_produto INT NOT NULL,
     quantidade INT NOT NULL,
-    PRIMARY KEY(cod_req),
     FOREIGN KEY(cod_req) REFERENCES requisicao_compra,
     FOREIGN KEY(cod_produto) REFERENCES produtos
 )
@@ -177,6 +177,8 @@ CREATE TABLE item_venda
     FOREIGN KEY(cod_produto) REFERENCES produtos,
     FOREIGN KEY(cod_venda) REFERENCES venda
 )
+
+insert into loja VALUES('89.241.601/0001-08', 'Rua Limeira', '200','Limeira', 'SP', 'Miguezeiros Sports - Matriz')
 
 /* ÍNDICES PARA CHAVES ESTRANGEIRAS*/
 
@@ -210,8 +212,8 @@ ON venda(cod_cliente)
 CREATE INDEX indice_vendedor
 ON venda(RF)
 
-CREATE INDEX indice_requisicao
-ON item_requisicao(cod_produto)
+Create INDEX item_RC
+ON item_requisicao(cod_req, cod_produto)
 
 CREATE INDEX indice_itemvenda
 ON item_venda(cod_venda)
